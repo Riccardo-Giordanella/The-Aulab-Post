@@ -10,6 +10,10 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ route('homepage') }}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('article.index') }}" class="nav-link active" aria-current="page">Tutti gli
+                        articoli</a>
+                </li>
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -26,7 +30,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('article.create')}}" class="nav-link">Inserisci un articolo</a>
+                        <a href="{{ route('article.create') }}" class="nav-link">Inserisci un articolo</a>
                     </li>
                 @endauth
                 @guest
