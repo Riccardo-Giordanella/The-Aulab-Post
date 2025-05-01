@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'is_revisor',
+        'is_writer',
     ];
 
     /**
@@ -47,7 +50,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function articles(){
+    public function articles()
+    {
         return $this->hasMany(Article::class);
     }
 }

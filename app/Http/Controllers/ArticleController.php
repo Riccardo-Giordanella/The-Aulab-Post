@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use PhpParser\Node\Stmt\TraitUse;
 
 class ArticleController extends Controller implements HasMiddleware
 {
@@ -21,7 +22,7 @@ class ArticleController extends Controller implements HasMiddleware
 
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->get();
+        $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view('article.index', compact('articles'));
     }
 
@@ -33,13 +34,13 @@ class ArticleController extends Controller implements HasMiddleware
 
     public function byCategory(Category $category)
     {
-        $articles = $category->articles()->orderBy("created_at", "desc")->get();
+        $articles = $category->articles()->where('is_accepted', true)->orderBy("created_at", "desc")->get();
         return view("article.by-category", compact("category", "articles"));
     }
 
     public function byAuthor(User $user)
     {
-        $articles = $user->articles()->orderBy("created_at", "desc")->get();
+        $articles = $user->articles()->where('is_accepted', true)->orderBy("created_at", "desc")->get();
         return view("article.by-author", compact("user", "articles"));
     }
 

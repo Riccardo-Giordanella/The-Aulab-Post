@@ -28,7 +28,7 @@
                         @enderror
                     </div>
                     <div class="mb-3 d-flex justify-content-center flex-column align-items-center">
-                        <button type="submit" class="btn btn-outline-secondary">Registrati</button>
+                        <button type="submit" class="btn btn-outline-secondary">Accedi</button>
                         <p class="mt-2">Non sei registrato? <a href="{{ route('register') }}"
                                 class="text-secondary">Clicca qui</a></p>
                     </div>
