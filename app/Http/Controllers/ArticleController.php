@@ -16,7 +16,7 @@ class ArticleController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth', except: ['index', 'show', 'byCategory', 'byAuthor']),
+            new Middleware('auth', except: ['index', 'show', 'byCategory', 'byAuthor', 'articleSearch']),
         ];
     }
 
@@ -66,33 +66,28 @@ class ArticleController extends Controller implements HasMiddleware
         return redirect()->route('homepage')->with('message', 'Articolo creato con successo');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function articleSearch(Request $request)
+    {
+        $query = $request->input('query');
+        $articles = Article::search($query)->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
+        return view('article.search-index', compact('articles', 'query'));
+    }
+
     public function show(Article $article)
     {
         return view('article.show', compact('article'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Article $article)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Article $article)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Article $article)
     {
         //
