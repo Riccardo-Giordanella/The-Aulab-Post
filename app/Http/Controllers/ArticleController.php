@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TraitUse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use PhpParser\Node\Stmt\TraitUse;
 
 class ArticleController extends Controller implements HasMiddleware
 {
@@ -63,7 +64,30 @@ class ArticleController extends Controller implements HasMiddleware
             'user_id' => Auth::user()->id,
         ]);
 
+        $tags = explode(',', $request->tags);
+
+        foreach ($tags as $i => $tag) {
+            $tags[$i] = trim($tag);
+        }
+
+        foreach ($tags as $tag) {
+            $newTag = Tag::updateOrCreate([
+                'name' => strtolower($tag)
+            ]);
+
+            $article->tags()->attach($newTag);
+        }
+
         return redirect()->route('homepage')->with('message', 'Articolo creato con successo');
+    }
+
+    public function storeCategory(Request $request)
+    {
+        Category::create([
+            'name' => strtolower($request->name)
+        ]);
+
+        return redirect()->back()->with('message', 'Categoria inserita correttamente');
     }
 
     public function articleSearch(Request $request)
