@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <a href="{{ route('article.create') }}" class="nav-link">Inserisci un articolo</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('writer.dashboard') }}" class="dropdown-item">Dashboard Writer</a>
+                        </li>
                     @endif
                 @endauth
                 @guest
